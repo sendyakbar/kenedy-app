@@ -1,3 +1,5 @@
 import { StaticScreenProps } from "@react-navigation/native";
 
-export type Props = StaticScreenProps<undefined>
+export type Props = StaticScreenProps<{
+    userId: string
+}>

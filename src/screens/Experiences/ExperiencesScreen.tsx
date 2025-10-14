@@ -7,6 +7,7 @@ import { colors } from "../../themes/colors";
 import { usePostExperiences } from "../../services/queries/experiences/usePostExperiences";
 import { AbsoluteLoading } from "../../components/common/AbsoluteLoading";
 import { ExperiencesRequest } from "../../services/models/experiences/types";
+import { useNavigation } from "@react-navigation/native";
 
 const createEmptyExperience = (): ExperienceFormData => ({
     role: '',
@@ -19,13 +20,16 @@ const createEmptyExperience = (): ExperienceFormData => ({
 
 export const ExperiencesScreen: FC<Props> = ({ route }) => {
     const { userId } = route.params
+    const { navigate } = useNavigation()
     const [experiences, setExperiences] = useState<ExperienceFormData[]>([createEmptyExperience()])
 
     const {
         mutate,
         isPending,
     } = usePostExperiences({
-        onSuccess: () => {},
+        onSuccess: () => {
+            navigate('JobMatchesScreen', { userId })
+        },
     })
 
     const handleItemChange = (index: number, field: keyof ExperienceFormData, value: string) => {
