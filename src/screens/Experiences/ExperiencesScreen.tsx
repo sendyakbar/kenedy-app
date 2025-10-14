@@ -67,12 +67,12 @@ const styles = StyleSheet.create({
     scrollViewContent: { flexGrow: 1 },
     actionsRow: {
         marginHorizontal: 24,
-        marginTop: 16,
+        marginTop: 24,
     },
     spacer: { width: 12 },
     cta: {
         marginHorizontal: 24,
-        marginTop: 24,
+        marginTop: 16,
     },
     bottomSpacing: { height: 32 },
 })
