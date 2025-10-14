@@ -39,7 +39,7 @@ export const ExperiencesScreen: FC<Props> = () => {
     return (
         <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
             <ScreenHeader
-                title="Your Experiences"
+                title="Your Experience(s)"
                 subtitle="Add one or more experiences to strengthen your profile"
             />
 

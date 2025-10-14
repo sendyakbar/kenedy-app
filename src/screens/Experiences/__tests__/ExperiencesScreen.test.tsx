@@ -10,7 +10,7 @@ const minimalProps = {
 describe('ExperiencesScreen', () => {
     it('renders header and one initial form', () => {
         const { getByText, getAllByText } = render(<ExperiencesScreen {...minimalProps} />)
-        expect(getByText('Your Experiences')).toBeTruthy()
+        expect(getByText('Your Experience(s)')).toBeTruthy()
         // Expect at least the Title label to appear for the initial form
         expect(getAllByText('Title').length).toBeGreaterThanOrEqual(1)
     })
