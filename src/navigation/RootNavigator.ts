@@ -4,11 +4,11 @@ import { ProfileScreen } from "../screens/Profile/ProfileScreen";
 import { ExperiencesScreen } from "../screens/Experiences/ExperiencesScreen";
 import { JobMatchesScreen } from "../screens/JobMatches/JobMatchesScreen";
 
-export const RootNavigator = createNativeStackNavigator({
+export const rootScreensConfig = {
     screens: {
         ProfileScreen: {
             screen: ProfileScreen,
-            options: { title: 'Your Profile' },
+            options: { headerShown: false },
         },
         ExperiencesScreen: {
             screen: ExperiencesScreen,
@@ -19,6 +19,8 @@ export const RootNavigator = createNativeStackNavigator({
             options: { title: 'Job Matches For You' },
         },
     },
-})
+} as const;
+
+export const RootNavigator = createNativeStackNavigator(rootScreensConfig)
 
 export type RootNavigatorParamList = StaticParamList<typeof RootNavigator>
