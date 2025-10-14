@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { render, fireEvent } from '@testing-library/react-native';
 import { JobMatchesScreen } from '../JobMatchesScreen';
 import { useGetJobMatches } from '../../../services/queries/jobMatches/useGetJobMatches';
 
@@ -132,6 +132,52 @@ describe('JobMatchesScreen', () => {
             param: { userId: 'custom-user-456' },
             options: { enabled: true },
         });
+    });
+
+    it('handles job press correctly', () => {
+        const apiJobs = [
+            {
+                id: 100,
+                user_id: 1,
+                title: 'Test Job',
+                company: 'Test Company',
+                location: 'Test Location',
+                score: '0.95',
+                description: 'Test description',
+            },
+        ];
+
+        (useGetJobMatches as jest.Mock).mockReturnValue({
+            data: apiJobs,
+            isLoading: false,
+        });
+
+        const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+        const { getByText } = render(<JobMatchesScreen route={mockRoute} />);
+
+        // Find and press the job card
+        const jobTitle = getByText('Test Job');
+        const jobCard = jobTitle.parent?.parent?.parent;
+        
+        if (jobCard) {
+            fireEvent.press(jobCard);
+            expect(consoleLogSpy).toHaveBeenCalledWith('Job pressed:', 'Test Job');
+        }
+
+        consoleLogSpy.mockRestore();
+    });
+
+    it('handles undefined data correctly by showing dummy data', () => {
+        (useGetJobMatches as jest.Mock).mockReturnValue({
+            data: undefined,
+            isLoading: false,
+        });
+
+        const { getByText } = render(<JobMatchesScreen route={mockRoute} />);
+
+        // Should show dummy jobs (8 jobs) when data is undefined
+        expect(getByText('8 opportunities tailored for you')).toBeTruthy();
+        expect(getByText('Senior React Native Developer')).toBeTruthy();
     });
 });
 

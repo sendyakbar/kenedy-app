@@ -48,12 +48,88 @@ describe('ProfileForm', () => {
     expect(onInputChange).toHaveBeenCalledWith('name', 'Alice');
   });
 
-  it('fires onFocus and onBlur callbacks', () => {
+  it('fires onInputChange for education', () => {
+    const { getByPlaceholderText, onInputChange } = setup();
+    const input = getByPlaceholderText("e.g., Bachelor's in Computer Science, MIT");
+
+    fireEvent.changeText(input, 'MIT');
+    expect(onInputChange).toHaveBeenCalledWith('education', 'MIT');
+  });
+
+  it('fires onInputChange for experience', () => {
+    const { getByPlaceholderText, onInputChange } = setup();
+    const input = getByPlaceholderText('Describe your work experience and achievements');
+
+    fireEvent.changeText(input, '5 years');
+    expect(onInputChange).toHaveBeenCalledWith('experience', '5 years');
+  });
+
+  it('fires onInputChange for skills', () => {
+    const { getByPlaceholderText, onInputChange } = setup();
+    const input = getByPlaceholderText('e.g., JavaScript, React Native, Node.js, Leadership');
+
+    fireEvent.changeText(input, 'React');
+    expect(onInputChange).toHaveBeenCalledWith('skills', 'React');
+  });
+
+  it('fires onInputChange for preferences', () => {
+    const { getByPlaceholderText, onInputChange } = setup();
+    const input = getByPlaceholderText('Describe your ideal job, work environment, and career goals');
+
+    fireEvent.changeText(input, 'Remote work');
+    expect(onInputChange).toHaveBeenCalledWith('preferences', 'Remote work');
+  });
+
+  it('fires onFocus and onBlur for name field', () => {
     const { getByPlaceholderText, onFocus, onBlur } = setup();
     const input = getByPlaceholderText('Enter your full name');
 
     fireEvent(input, 'focus');
-    expect(onFocus).toHaveBeenCalled();
+    expect(onFocus).toHaveBeenCalledWith('name');
+
+    fireEvent(input, 'blur');
+    expect(onBlur).toHaveBeenCalled();
+  });
+
+  it('fires onFocus and onBlur for education field', () => {
+    const { getByPlaceholderText, onFocus, onBlur } = setup();
+    const input = getByPlaceholderText("e.g., Bachelor's in Computer Science, MIT");
+
+    fireEvent(input, 'focus');
+    expect(onFocus).toHaveBeenCalledWith('education');
+
+    fireEvent(input, 'blur');
+    expect(onBlur).toHaveBeenCalled();
+  });
+
+  it('fires onFocus and onBlur for experience field', () => {
+    const { getByPlaceholderText, onFocus, onBlur } = setup();
+    const input = getByPlaceholderText('Describe your work experience and achievements');
+
+    fireEvent(input, 'focus');
+    expect(onFocus).toHaveBeenCalledWith('experience');
+
+    fireEvent(input, 'blur');
+    expect(onBlur).toHaveBeenCalled();
+  });
+
+  it('fires onFocus and onBlur for skills field', () => {
+    const { getByPlaceholderText, onFocus, onBlur } = setup();
+    const input = getByPlaceholderText('e.g., JavaScript, React Native, Node.js, Leadership');
+
+    fireEvent(input, 'focus');
+    expect(onFocus).toHaveBeenCalledWith('skills');
+
+    fireEvent(input, 'blur');
+    expect(onBlur).toHaveBeenCalled();
+  });
+
+  it('fires onFocus and onBlur for preferences field', () => {
+    const { getByPlaceholderText, onFocus, onBlur } = setup();
+    const input = getByPlaceholderText('Describe your ideal job, work environment, and career goals');
+
+    fireEvent(input, 'focus');
+    expect(onFocus).toHaveBeenCalledWith('preferences');
 
     fireEvent(input, 'blur');
     expect(onBlur).toHaveBeenCalled();

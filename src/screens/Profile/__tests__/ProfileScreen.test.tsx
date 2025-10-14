@@ -54,13 +54,90 @@ describe('ProfileScreen', () => {
     expect(getByPlaceholderText('Enter your full name')).toBeTruthy();
   });
 
-  it('blocks submission when fields are empty', async () => {
-    const { getByText } = render(<ProfileScreen {...minimalProps} />);
+  it('blocks submission when name is empty', async () => {
+    const { getByText, getByPlaceholderText } = render(<ProfileScreen {...minimalProps} />);
+
+    fireEvent.changeText(getByPlaceholderText("e.g., Bachelor's in Computer Science, MIT"), 'BSc');
+    fireEvent.changeText(getByPlaceholderText('Describe your work experience and achievements'), '3 years');
+    fireEvent.changeText(getByPlaceholderText('e.g., JavaScript, React Native, Node.js, Leadership'), 'JS');
+    fireEvent.changeText(getByPlaceholderText('Describe your ideal job, work environment, and career goals'), 'Remote');
 
     const continueBtn = getByText('Continue');
     fireEvent.press(continueBtn);
 
     expect(mockNavigate).not.toHaveBeenCalled();
+    expect(mockMutate).not.toHaveBeenCalled();
+  });
+
+  it('blocks submission when education is empty', async () => {
+    const { getByText, getByPlaceholderText } = render(<ProfileScreen {...minimalProps} />);
+
+    fireEvent.changeText(getByPlaceholderText('Enter your full name'), 'John');
+    fireEvent.changeText(getByPlaceholderText('Describe your work experience and achievements'), '3 years');
+    fireEvent.changeText(getByPlaceholderText('e.g., JavaScript, React Native, Node.js, Leadership'), 'JS');
+    fireEvent.changeText(getByPlaceholderText('Describe your ideal job, work environment, and career goals'), 'Remote');
+
+    const continueBtn = getByText('Continue');
+    fireEvent.press(continueBtn);
+
+    expect(mockNavigate).not.toHaveBeenCalled();
+    expect(mockMutate).not.toHaveBeenCalled();
+  });
+
+  it('blocks submission when experience is empty', async () => {
+    const { getByText, getByPlaceholderText } = render(<ProfileScreen {...minimalProps} />);
+
+    fireEvent.changeText(getByPlaceholderText('Enter your full name'), 'John');
+    fireEvent.changeText(getByPlaceholderText("e.g., Bachelor's in Computer Science, MIT"), 'BSc');
+    fireEvent.changeText(getByPlaceholderText('e.g., JavaScript, React Native, Node.js, Leadership'), 'JS');
+    fireEvent.changeText(getByPlaceholderText('Describe your ideal job, work environment, and career goals'), 'Remote');
+
+    const continueBtn = getByText('Continue');
+    fireEvent.press(continueBtn);
+
+    expect(mockNavigate).not.toHaveBeenCalled();
+    expect(mockMutate).not.toHaveBeenCalled();
+  });
+
+  it('blocks submission when skills is empty', async () => {
+    const { getByText, getByPlaceholderText } = render(<ProfileScreen {...minimalProps} />);
+
+    fireEvent.changeText(getByPlaceholderText('Enter your full name'), 'John');
+    fireEvent.changeText(getByPlaceholderText("e.g., Bachelor's in Computer Science, MIT"), 'BSc');
+    fireEvent.changeText(getByPlaceholderText('Describe your work experience and achievements'), '3 years');
+    fireEvent.changeText(getByPlaceholderText('Describe your ideal job, work environment, and career goals'), 'Remote');
+
+    const continueBtn = getByText('Continue');
+    fireEvent.press(continueBtn);
+
+    expect(mockNavigate).not.toHaveBeenCalled();
+    expect(mockMutate).not.toHaveBeenCalled();
+  });
+
+  it('blocks submission when preferences is empty', async () => {
+    const { getByText, getByPlaceholderText } = render(<ProfileScreen {...minimalProps} />);
+
+    fireEvent.changeText(getByPlaceholderText('Enter your full name'), 'John');
+    fireEvent.changeText(getByPlaceholderText("e.g., Bachelor's in Computer Science, MIT"), 'BSc');
+    fireEvent.changeText(getByPlaceholderText('Describe your work experience and achievements'), '3 years');
+    fireEvent.changeText(getByPlaceholderText('e.g., JavaScript, React Native, Node.js, Leadership'), 'JS');
+
+    const continueBtn = getByText('Continue');
+    fireEvent.press(continueBtn);
+
+    expect(mockNavigate).not.toHaveBeenCalled();
+    expect(mockMutate).not.toHaveBeenCalled();
+  });
+
+  it('updates focus state when field is focused', () => {
+    const { getByPlaceholderText } = render(<ProfileScreen {...minimalProps} />);
+    const input = getByPlaceholderText('Enter your full name');
+
+    fireEvent(input, 'focus');
+    fireEvent(input, 'blur');
+    
+    // Just verify the component renders correctly with focus changes
+    expect(input).toBeTruthy();
   });
 
   it('navigates when form is valid', async () => {

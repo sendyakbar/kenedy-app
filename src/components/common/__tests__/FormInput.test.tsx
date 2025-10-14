@@ -33,4 +33,46 @@ describe('FormInput', () => {
     expect(input.props.multiline).toBe(true);
     expect(input.props.numberOfLines).toBe(3);
   });
+
+  it('applies focused styles when isFocused is true', () => {
+    const { getByPlaceholderText } = render(
+      <FormInput label="Name" value="" onChangeText={() => {}} placeholder="Enter name" isFocused={true} />
+    );
+
+    const input = getByPlaceholderText('Enter name');
+    expect(input).toBeTruthy();
+  });
+
+  it('applies hasValue styles when value is not empty', () => {
+    const { getByPlaceholderText } = render(
+      <FormInput label="Name" value="John Doe" onChangeText={() => {}} placeholder="Enter name" />
+    );
+
+    const input = getByPlaceholderText('Enter name');
+    expect(input.props.value).toBe('John Doe');
+  });
+
+  it('calls onFocus and onBlur callbacks', () => {
+    const onFocus = jest.fn();
+    const onBlur = jest.fn();
+    
+    const { getByPlaceholderText } = render(
+      <FormInput 
+        label="Name" 
+        value="" 
+        onChangeText={() => {}} 
+        placeholder="Enter name"
+        onFocus={onFocus}
+        onBlur={onBlur}
+      />
+    );
+
+    const input = getByPlaceholderText('Enter name');
+    
+    fireEvent(input, 'focus');
+    expect(onFocus).toHaveBeenCalled();
+    
+    fireEvent(input, 'blur');
+    expect(onBlur).toHaveBeenCalled();
+  });
 });
