@@ -58,7 +58,9 @@ export const ProfileScreen: FC<Props> = () => {
     const handleSubmit = () => {
         if (validateForm()) {
             // Navigate to experiences screen
-            navigation.navigate('ExperiencesScreen');
+            navigation.navigate('ExperiencesScreen', {
+                userId: 'asdf'
+            });
         }
     };
 

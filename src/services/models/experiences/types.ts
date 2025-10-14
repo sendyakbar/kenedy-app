@@ -1,4 +1,4 @@
-export type Experience =   {
+export type Experience = {
     user_id: number
     title: string
     company: string

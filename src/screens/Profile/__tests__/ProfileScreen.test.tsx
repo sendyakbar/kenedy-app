@@ -55,7 +55,7 @@ describe('ProfileScreen', () => {
     fireEvent.press(continueBtn);
 
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('ExperiencesScreen');
+      expect(mockNavigate).toHaveBeenCalledWith('ExperiencesScreen', { userId: 'asdf' });
     });
   });
 });

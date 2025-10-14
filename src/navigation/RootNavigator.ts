@@ -12,11 +12,11 @@ export const rootScreensConfig = {
         },
         ExperiencesScreen: {
             screen: ExperiencesScreen,
-            options: { title: 'Your Experience(s)' },
+            options: { headerShown: false },
         },
         JobMatchesScreen: {
             screen: JobMatchesScreen,
-            options: { title: 'Job Matches For You' },
+            options: { headerShown: false },
         },
     },
 } as const;
