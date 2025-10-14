@@ -13,6 +13,8 @@ interface Props {
 }
 
 export const ExperienceItemForm: FC<Props> = ({ value, index, onChange, onRemove }) => {
+    const showRemove = typeof onRemove === 'function' && index !== 0
+
     return (
         <View style={styles.card}>
             <FormInput
@@ -42,7 +44,7 @@ export const ExperienceItemForm: FC<Props> = ({ value, index, onChange, onRemove
                 numberOfLines={4}
             />
 
-            {onRemove && (
+            {showRemove && (
                 <View style={styles.removeRow}>
                     <Button
                         title="Remove"

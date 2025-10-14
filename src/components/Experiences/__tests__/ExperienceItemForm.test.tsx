@@ -49,18 +49,16 @@ describe('ExperienceItemForm', () => {
         expect(onChange).toHaveBeenCalledWith(2, 'description', 'Built cool stuff')
     })
 
-    it('shows Remove button only when onRemove is provided and calls it with index', () => {
+    it('hides Remove for index 0 and shows for index > 0', () => {
         const onRemove = jest.fn()
-        const { getByText, rerender, queryByText } = render(
-            <ExperienceItemForm value={base} index={1} onChange={() => {}} onRemove={onRemove} />
+        const { queryByText, rerender, getByText } = render(
+            <ExperienceItemForm value={base} index={0} onChange={() => {}} onRemove={onRemove} />
         )
+        expect(queryByText('Remove')).toBeNull()
 
+        rerender(<ExperienceItemForm value={base} index={1} onChange={() => {}} onRemove={onRemove} />)
         const removeBtn = getByText('Remove')
         fireEvent.press(removeBtn)
         expect(onRemove).toHaveBeenCalledWith(1)
-
-        // Without onRemove prop, button should not exist
-        rerender(<ExperienceItemForm value={base} index={1} onChange={() => {}} />)
-        expect(queryByText('Remove')).toBeNull()
     })
 })

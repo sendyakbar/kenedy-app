@@ -22,18 +22,19 @@ describe('ExperiencesList', () => {
         expect(titles.length).toBe(3)
     })
 
-    it('renders Remove buttons when onItemRemove is provided and calls with index', () => {
-        const items = [makeItem({ title: 'A' }), makeItem({ title: 'B' })]
+    it('shows Remove buttons only for items after index 0 and calls with correct index', () => {
+        const items = [makeItem({ title: 'A' }), makeItem({ title: 'B' }), makeItem({ title: 'C' })]
         const onItemRemove = jest.fn()
-        const { getAllByText } = render(
+        const { queryAllByText, getAllByText } = render(
             <ExperiencesList items={items} onItemChange={() => {}} onItemRemove={onItemRemove} />
         )
 
-        const removeButtons = getAllByText('Remove')
+        // First item should not have Remove; others should
+        const removeButtons = queryAllByText('Remove')
         expect(removeButtons.length).toBe(2)
 
-        // Press the second remove button (index 1)
-        fireEvent.press(removeButtons[1])
+        // Press the second item's remove (index 1)
+        fireEvent.press(getAllByText('Remove')[0])
         expect(onItemRemove).toHaveBeenCalledWith(1)
     })
 })
