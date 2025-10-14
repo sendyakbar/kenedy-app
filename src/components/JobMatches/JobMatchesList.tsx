@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { View, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, ListRenderItem } from "react-native";
 import { JobCard } from "./JobCard";
 import { EmptyState } from "./EmptyState";
 import { JobMatch } from "../../services/models/jobMatches/types";
@@ -15,25 +15,34 @@ export const JobMatchesList: FC<JobMatchesListProps> = ({
     onJobPress,
     isLoading = false
 }) => {
-    if (!jobs || jobs.length === 0) {
+    const renderItem: ListRenderItem<JobMatch> = ({ item }) => (
+        <JobCard 
+            job={item} 
+            onPress={onJobPress}
+        />
+    );
+
+    const keyExtractor = (item: JobMatch) => item.id.toString();
+
+    const renderEmptyComponent = () => {
         return isLoading ? null : <EmptyState />;
-    }
+    };
 
     return (
-        <View style={styles.container}>
-            {jobs.map((job) => (
-                <JobCard 
-                    key={job.id} 
-                    job={job} 
-                    onPress={onJobPress}
-                />
-            ))}
-        </View>
+        <FlatList
+            data={jobs}
+            renderItem={renderItem}
+            keyExtractor={keyExtractor}
+            contentContainerStyle={styles.contentContainer}
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={renderEmptyComponent}
+            scrollEnabled={false}
+        />
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    contentContainer: {
         paddingHorizontal: 24,
         paddingTop: 8,
     },

@@ -1,9 +1,11 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { ProfileScreen } from '../ProfileScreen';
+import { usePostProfile } from '../../../services/queries/profile/usePostProfile';
 
 // Define a mock navigate function name that is allowed by Jest's out-of-scope guard
 let mockNavigate: jest.Mock;
+let mockMutate: jest.Mock;
 
 jest.mock('@react-navigation/native', () => {
   const actualNav = jest.requireActual('@react-navigation/native');
@@ -16,6 +18,9 @@ jest.mock('@react-navigation/native', () => {
   };
 });
 
+// Mock the hook
+jest.mock('../../../services/queries/profile/usePostProfile');
+
 const minimalProps = {
   route: { key: 'profile-key', name: 'ProfileScreen', params: undefined },
   navigation: {} as any,
@@ -24,6 +29,22 @@ const minimalProps = {
 describe('ProfileScreen', () => {
   beforeEach(() => {
     mockNavigate.mockClear();
+    mockMutate = jest.fn();
+    
+    // Mock the hook implementation
+    (usePostProfile as jest.Mock).mockImplementation((options) => {
+      // Return a mutation object with mutate function that calls onSuccess
+      return {
+        mutate: (data: any) => {
+          mockMutate(data);
+          // Simulate successful mutation by calling onSuccess if provided
+          if (options?.onSuccess) {
+            options.onSuccess({ user_id: 'asdf' });
+          }
+        },
+        isPending: false,
+      };
+    });
   });
 
   it('renders header and form', () => {
