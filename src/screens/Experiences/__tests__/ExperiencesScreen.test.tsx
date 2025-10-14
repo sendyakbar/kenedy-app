@@ -23,9 +23,5 @@ describe('ExperiencesScreen', () => {
         fireEvent.press(addBtn)
         // Now expect at least 3
         expect(getAllByText('Title').length).toBeGreaterThanOrEqual(3)
-
-        const removeBtn = getByText('Remove Last')
-        fireEvent.press(removeBtn)
-        expect(getAllByText('Title').length).toBeGreaterThanOrEqual(2)
     })
 })
