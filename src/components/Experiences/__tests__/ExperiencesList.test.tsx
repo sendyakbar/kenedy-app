@@ -4,26 +4,28 @@ import { ExperiencesList } from '../ExperiencesList'
 import type { ExperienceFormData } from '../types'
 
 const makeItem = (overrides: Partial<ExperienceFormData> = {}): ExperienceFormData => ({
-    title: '',
+    role: '',
+    domain: '',
+    years: 0,
+    skills: '',
     company: '',
-    duration: '',
     description: '',
     ...overrides,
 })
 
 describe('ExperiencesList', () => {
     it('renders a list of ExperienceItemForm entries', () => {
-        const items = [makeItem({ title: 'A' }), makeItem({ title: 'B' }), makeItem({ title: 'C' })]
+        const items = [makeItem({ role: 'A' }), makeItem({ role: 'B' }), makeItem({ role: 'C' })]
         const { getAllByText } = render(
             <ExperiencesList items={items} onItemChange={() => {}} />
         )
 
-        const titles = getAllByText('Title')
-        expect(titles.length).toBe(3)
+        const roles = getAllByText('Role')
+        expect(roles.length).toBe(3)
     })
 
     it('shows Remove buttons only for items after index 0 and calls with correct index', () => {
-        const items = [makeItem({ title: 'A' }), makeItem({ title: 'B' }), makeItem({ title: 'C' })]
+        const items = [makeItem({ role: 'A' }), makeItem({ role: 'B' }), makeItem({ role: 'C' })]
         const onItemRemove = jest.fn()
         const { queryAllByText, getAllByText } = render(
             <ExperiencesList items={items} onItemChange={() => {}} onItemRemove={onItemRemove} />

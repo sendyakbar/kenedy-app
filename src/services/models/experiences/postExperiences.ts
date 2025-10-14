@@ -1,8 +1,8 @@
 import { fetcher } from "../../api/fetcher";
-import { ExperiencesRequest, ExperiencesResponse } from "./types";
+import { ExperiencesRequest } from "./types";
 
 export const postExperiences = async (data: ExperiencesRequest) => (
-    await fetcher<SuccessResponse<ExperiencesResponse>>({
+    await fetcher<SuccessResponse>({
         url: '/experiences',
         method: 'post',
         data,

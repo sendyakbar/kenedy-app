@@ -32,7 +32,7 @@ export const ProfileScreen: FC<Props> = () => {
     } = usePostProfile({
         onSuccess: (response) => {
             navigation.navigate('ExperiencesScreen', {
-                userId: response.data.user_id,
+                userId: response.user_id,
             });
         },
     })

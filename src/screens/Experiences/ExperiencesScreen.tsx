@@ -9,9 +9,11 @@ import { AbsoluteLoading } from "../../components/common/AbsoluteLoading";
 import { ExperiencesRequest } from "../../services/models/experiences/types";
 
 const createEmptyExperience = (): ExperienceFormData => ({
-    title: '',
+    role: '',
+    domain: '',
+    years: 0,
+    skills: '',
     company: '',
-    duration: '',
     description: '',
 })
 
@@ -44,8 +46,9 @@ export const ExperiencesScreen: FC<Props> = ({ route }) => {
 
     const handleContinue = () => {
         const payload: ExperiencesRequest = experiences.map((d) => ({
-            user_id: Number(userId),
             ...d,
+            years: Number(d.years),
+            user_id: userId,
         }))
         mutate(payload)
     }

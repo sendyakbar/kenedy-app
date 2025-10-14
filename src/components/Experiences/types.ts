@@ -1,6 +1,8 @@
 export type ExperienceFormData = {
-    title: string
+    role: string
+    domain: string
+    years: number
+    skills: string
     company: string
-    duration: string
     description: string
 }

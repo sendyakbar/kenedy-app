@@ -18,28 +18,43 @@ export const ExperienceItemForm: FC<Props> = ({ value, index, onChange, onRemove
     return (
         <View style={styles.card}>
             <FormInput
-                label="Title"
-                value={value.title}
-                onChangeText={(text) => onChange(index, 'title', text)}
-                placeholder="e.g., Senior Software Engineer"
-            />
-            <FormInput
                 label="Company"
                 value={value.company}
                 onChangeText={(text) => onChange(index, 'company', text)}
-                placeholder="e.g., Tech Corp"
+                placeholder="e.g., Goto Corp"
+            />
+            <FormInput
+                label="Domain"
+                value={value.domain}
+                onChangeText={(text) => onChange(index, 'domain', text)}
+                placeholder="e.g., Fintech"
+            />
+            <FormInput
+                label="Role"
+                value={value.role}
+                onChangeText={(text) => onChange(index, 'role', text)}
+                placeholder="e.g., Senior Software Engineer"
             />
             <FormInput
                 label="Duration"
-                value={value.duration}
-                onChangeText={(text) => onChange(index, 'duration', text)}
-                placeholder="e.g., 2 years"
+                value={String(value.years)}
+                onChangeText={(text) => onChange(index, 'years', text)}
+                placeholder="e.g., 2"
+                keyboardType="number-pad"
             />
             <FormInput
                 label="Description"
                 value={value.description}
                 onChangeText={(text) => onChange(index, 'description', text)}
                 placeholder="Describe your role, responsibilities, and achievements"
+                multiline
+                numberOfLines={4}
+            />
+            <FormInput
+                label="Skills"
+                value={value.skills}
+                onChangeText={(text) => onChange(index, 'skills', text)}
+                placeholder="e.g., golang, nodejs, java"
                 multiline
                 numberOfLines={4}
             />

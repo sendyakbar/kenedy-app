@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const axiosInstance = axios.create({
-    baseURL: 'https://kenedy.co.id'
+    baseURL: 'http://103.127.135.62:8989'
 })
 
 export default axiosInstance

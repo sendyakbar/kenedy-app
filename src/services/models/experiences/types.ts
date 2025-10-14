@@ -1,14 +1,11 @@
 export type Experience = {
-    user_id: number
-    title: string
+    user_id: string
+    role: string
+    domain: string
+    years: number
+    skills: string
     company: string
-    duration: string
     description: string
 }
 
 export type ExperiencesRequest = Experience[]
-
-export type ExperiencesResponse = {
-    message: string
-    status: string
-}

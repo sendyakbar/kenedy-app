@@ -4,14 +4,13 @@ export enum ResponseStatus {
   }
   
   declare global {
-    type SuccessResponse<T> = {
+    type SuccessResponse = {
       status: ResponseStatus
       message: string
-      data: T
     }
     type ErrorResponse = {
-      status: number
-      data: SuccessResponse<T>
+      status: ResponseStatus
+      data: any
     }
   }
   

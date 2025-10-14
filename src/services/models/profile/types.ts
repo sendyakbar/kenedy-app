@@ -7,7 +7,5 @@ export type ProfileRequest = {
 }
 
 export type ProfileResponse = {
-    message: string
-    status: string
     user_id: string
 }
