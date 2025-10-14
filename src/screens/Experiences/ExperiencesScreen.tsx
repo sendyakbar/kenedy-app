@@ -2,11 +2,11 @@ import { FC } from "react";
 import { Text, View } from "react-native";
 import { Props } from "./types";
 
-export const JobListScreen: FC<Props> = () => {
+export const ExperiencesScreen: FC<Props> = () => {
     return (
         <View>
             <Text>
-                Hellow world!
+                Hello this is Experiences screen
             </Text>
         </View>
     )
