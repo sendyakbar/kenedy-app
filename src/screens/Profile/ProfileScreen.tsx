@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { ScreenHeader, Button } from "../../components/common";
 import { ProfileForm } from "../../components/Profile";
 import type { FormData } from "../../components/Profile/types";
+import { colors } from "../../themes/colors";
 
 export const ProfileScreen: FC<Props> = () => {
     const navigation = useNavigation();
@@ -103,7 +104,7 @@ export const ProfileScreen: FC<Props> = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F7FAFC',
+        backgroundColor: colors.BACKGROUND,
     },
     scrollView: {
         flex: 1,

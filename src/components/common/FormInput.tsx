@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { View, Text, TextInput, StyleSheet, TextInputProps } from 'react-native';
+import { colors } from '../../themes/colors';
 
 interface FormInputProps extends TextInputProps {
     label: string;
@@ -40,7 +41,7 @@ export const FormInput: FC<FormInputProps> = ({
                 value={value}
                 onChangeText={onChangeText}
                 placeholder={placeholder}
-                placeholderTextColor="#A0AEC0"
+                placeholderTextColor={colors.TEXT_SECONDARY}
                 multiline={multiline}
                 numberOfLines={numberOfLines}
                 onFocus={onFocus}
@@ -59,20 +60,20 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 16,
         fontWeight: '600',
-        color: '#2D3748',
+        color: colors.TEXT_PRIMARY,
         marginBottom: 8,
         letterSpacing: 0.2,
     },
     input: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.WHITE,
         borderWidth: 2,
-        borderColor: '#E2E8F0',
+        borderColor: colors.BORDER,
         borderRadius: 12,
         paddingHorizontal: 16,
         paddingVertical: 14,
         fontSize: 16,
-        color: '#1A202C',
-        shadowColor: '#000',
+        color: colors.TEXT_PRIMARY,
+        shadowColor: colors.BLACK,
         shadowOffset: {
             width: 0,
             height: 1,
@@ -86,8 +87,8 @@ const styles = StyleSheet.create({
         paddingTop: 14,
     },
     inputFocused: {
-        borderColor: '#4299E1',
-        backgroundColor: '#FFFFFF',
+        borderColor: colors.SECONDARY,
+        backgroundColor: colors.WHITE,
         shadowColor: '#4299E1',
         shadowOpacity: 0.1,
         shadowRadius: 4,

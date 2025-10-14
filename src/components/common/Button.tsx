@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { TouchableOpacity, Text, StyleSheet, TouchableOpacityProps, ViewStyle, TextStyle } from 'react-native';
+import { colors } from '../../themes/colors';
 
 interface ButtonProps extends TouchableOpacityProps {
     title: string;
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     },
     // Variants
     primaryButton: {
-        backgroundColor: '#0a1542',
+        backgroundColor: colors.PRIMARY,
         shadowColor: '#4299E1',
         shadowOffset: {
             width: 0,
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     secondaryButton: {
-        backgroundColor: '#277bf5',
+        backgroundColor: colors.SECONDARY,
         shadowColor: '#718096',
         shadowOffset: {
             width: 0,
