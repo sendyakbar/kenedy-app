@@ -11,6 +11,8 @@ import { ScreenHeader, Button } from "../../components/common";
 import { ProfileForm } from "../../components/Profile";
 import type { FormData } from "../../components/Profile/types";
 import { colors } from "../../themes/colors";
+import { usePostProfile } from "../../services/queries/profile/usePostProfile";
+import { AbsoluteLoading } from "../../components/common/AbsoluteLoading";
 
 export const ProfileScreen: FC<Props> = () => {
     const navigation = useNavigation();
@@ -23,6 +25,17 @@ export const ProfileScreen: FC<Props> = () => {
     });
 
     const [focusedField, setFocusedField] = useState<string | null>(null);
+
+    const {
+        mutate,
+        isPending,
+    } = usePostProfile({
+        onSuccess: (response) => {
+            navigation.navigate('ExperiencesScreen', {
+                userId: response.data.user_id,
+            });
+        },
+    })
 
     const handleInputChange = (field: keyof FormData, value: string) => {
         setFormData((prev: FormData) => ({
@@ -57,42 +70,42 @@ export const ProfileScreen: FC<Props> = () => {
 
     const handleSubmit = () => {
         if (validateForm()) {
-            // Navigate to experiences screen
-            navigation.navigate('ExperiencesScreen', {
-                userId: 'asdf'
-            });
+            mutate(formData)
         }
     };
 
     return (
-        <ScrollView
-            style={styles.scrollView}
-            contentContainerStyle={styles.scrollViewContent}
-            showsVerticalScrollIndicator={false}
-        >
-            <ScreenHeader
-                title="Build Your Profile"
-                subtitle="Tell us about yourself to find your perfect job match"
-            />
-
-            <ProfileForm
-                formData={formData}
-                focusedField={focusedField}
-                onInputChange={handleInputChange}
-                onFocus={setFocusedField}
-                onBlur={() => setFocusedField(null)}
-            />
-
-            <View style={styles.buttonContainer}>
-                <Button
-                    title="Continue"
-                    onPress={handleSubmit}
-                    variant="secondary"
+        <>
+            {isPending ? <AbsoluteLoading /> : null}
+            <ScrollView
+                style={styles.scrollView}
+                contentContainerStyle={styles.scrollViewContent}
+                showsVerticalScrollIndicator={false}
+            >
+                <ScreenHeader
+                    title="Build Your Profile"
+                    subtitle="Tell us about yourself to find your perfect job match"
                 />
-            </View>
 
-            <View style={styles.bottomSpacing} />
-        </ScrollView>
+                <ProfileForm
+                    formData={formData}
+                    focusedField={focusedField}
+                    onInputChange={handleInputChange}
+                    onFocus={setFocusedField}
+                    onBlur={() => setFocusedField(null)}
+                />
+
+                <View style={styles.buttonContainer}>
+                    <Button
+                        title="Continue"
+                        onPress={handleSubmit}
+                        variant="secondary"
+                    />
+                </View>
+
+                <View style={styles.bottomSpacing} />
+            </ScrollView>
+        </>
     );
 };
 
