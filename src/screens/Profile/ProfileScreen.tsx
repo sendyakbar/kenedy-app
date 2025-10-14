@@ -3,8 +3,6 @@ import {
     View,
     StyleSheet,
     ScrollView,
-    KeyboardAvoidingView,
-    Platform,
     Alert
 } from "react-native";
 import { Props } from "./types";
@@ -65,49 +63,41 @@ export const ProfileScreen: FC<Props> = () => {
     };
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.container}
+        <ScrollView
+            style={styles.scrollView}
+            contentContainerStyle={styles.scrollViewContent}
+            showsVerticalScrollIndicator={false}
         >
-            <ScrollView
-                style={styles.scrollView}
-                contentContainerStyle={styles.scrollViewContent}
-                showsVerticalScrollIndicator={false}
-            >
-                <ScreenHeader
-                    title="Build Your Profile"
-                    subtitle="Tell us about yourself to find your perfect job match"
+            <ScreenHeader
+                title="Build Your Profile"
+                subtitle="Tell us about yourself to find your perfect job match"
+            />
+
+            <ProfileForm
+                formData={formData}
+                focusedField={focusedField}
+                onInputChange={handleInputChange}
+                onFocus={setFocusedField}
+                onBlur={() => setFocusedField(null)}
+            />
+
+            <View style={styles.buttonContainer}>
+                <Button
+                    title="Continue"
+                    onPress={handleSubmit}
+                    variant="secondary"
                 />
+            </View>
 
-                <ProfileForm
-                    formData={formData}
-                    focusedField={focusedField}
-                    onInputChange={handleInputChange}
-                    onFocus={setFocusedField}
-                    onBlur={() => setFocusedField(null)}
-                />
-
-                <View style={styles.buttonContainer}>
-                    <Button
-                        title="Continue"
-                        onPress={handleSubmit}
-                        variant="secondary"
-                    />
-                </View>
-
-                <View style={styles.bottomSpacing} />
-            </ScrollView>
-        </KeyboardAvoidingView>
+            <View style={styles.bottomSpacing} />
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.BACKGROUND,
-    },
     scrollView: {
         flex: 1,
+        backgroundColor: colors.BACKGROUND,
     },
     scrollViewContent: {
         flexGrow: 1,
