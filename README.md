@@ -1,97 +1,297 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Kenedy App 🎯
 
-# Getting Started
+A modern React Native mobile application for intelligent job matching. Built for the Confluent Hackathon, Kenedy App helps job seekers find their ideal positions by matching their skills, experience, and preferences with available opportunities.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 📱 About
 
-## Step 1: Start Metro
+Kenedy App is an AI-powered job matching platform that streamlines the job search process. Users can create detailed profiles including their education, experience, skills, and job preferences. The app then provides personalized job recommendations with match scores to help users find the best opportunities.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+### Key Features
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- **👤 Profile Management**: Create and manage your professional profile with education, experience, skills, and preferences
+- **💼 Experience Tracking**: Add and organize your work experience and professional background
+- **🎯 Smart Job Matching**: Get AI-powered job recommendations based on your profile
+- **📊 Match Scoring**: View compatibility scores for each job recommendation
+- **🎨 Modern UI**: Clean, intuitive interface with smooth navigation
+- **⚡ Real-time Updates**: Powered by React Query for efficient data fetching and caching
 
-```sh
-# Using npm
+## 🛠 Tech Stack
+
+### Core Technologies
+- **React Native** (0.81.4) - Cross-platform mobile framework
+- **TypeScript** (5.8.3) - Type-safe development
+- **React** (19.1.0) - UI library
+
+### Navigation & State Management
+- **React Navigation** (7.x) - Native stack navigation
+- **TanStack React Query** (5.x) - Server state management and caching
+
+### Networking
+- **Axios** (1.12.2) - HTTP client for API requests
+
+### UI & UX
+- **React Native Bootsplash** - Professional splash screen
+- **React Native Safe Area Context** - Safe area handling
+- **Custom theming system** - Centralized color management
+
+### Testing
+- **Jest** (29.x) - Testing framework
+- **React Native Testing Library** (13.x) - Component testing
+- **Jest Native** - Extended matchers for React Native
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** >= 20
+- **npm** or **Yarn**
+- **React Native development environment** - Follow the [official setup guide](https://reactnative.dev/docs/set-up-your-environment)
+- **Android Studio** (for Android development)
+- **Xcode** (for iOS development, macOS only)
+- **CocoaPods** (for iOS dependencies, macOS only)
+- **Ruby** and **Bundler** (for iOS dependency management)
+
+## 🚀 Getting Started
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd kenedy-app
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # OR
+   yarn install
+   ```
+
+3. **iOS Setup** (macOS only)
+   
+   First, install Ruby bundler:
+   ```bash
+   bundle install
+   ```
+   
+   Then install CocoaPods dependencies:
+   ```bash
+   cd ios
+   bundle exec pod install
+   cd ..
+   ```
+
+### Running the Application
+
+#### Step 1: Start Metro Bundler
+
+Metro is the JavaScript bundler for React Native. Start it with:
+
+```bash
 npm start
-
-# OR using Yarn
+# OR
 yarn start
 ```
 
-## Step 2: Build and run your app
+#### Step 2: Run on Device/Emulator
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Open a new terminal window and run:
 
-### Android
-
-```sh
-# Using npm
+**For Android:**
+```bash
 npm run android
-
-# OR using Yarn
+# OR
 yarn android
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+**For iOS:**
+```bash
 npm run ios
-
-# OR using Yarn
+# OR
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+If everything is set up correctly, you should see the app running on your emulator/simulator or physical device.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+> **Tip**: You can also run the app directly from Android Studio or Xcode.
 
-## Step 3: Modify your app
+### Development
 
-Now that you have successfully run the app, let's make changes!
+#### Fast Refresh
+The app uses React Native's Fast Refresh - any changes you make to the code will be reflected immediately.
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+#### Manual Reload
+- **Android**: Press <kbd>R</kbd> twice or <kbd>Cmd ⌘</kbd>/<kbd>Ctrl</kbd> + <kbd>M</kbd> to open the Dev Menu
+- **iOS**: Press <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in the simulator
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## 📁 Project Structure
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+```
+kenedy-app/
+├── src/
+│   ├── assets/           # Images, logos, and static assets
+│   │   ├── bootsplash/   # Splash screen assets
+│   │   └── logos/        # App logos
+│   │
+│   ├── components/       # Reusable UI components
+│   │   ├── common/       # Shared components (Button, FormInput, etc.)
+│   │   ├── Experiences/  # Experience-related components
+│   │   ├── JobMatches/   # Job matching components
+│   │   └── Profile/      # Profile components
+│   │
+│   ├── navigation/       # Navigation configuration
+│   │   └── RootNavigator.ts
+│   │
+│   ├── screens/          # Screen components
+│   │   ├── Experiences/  # Experience management screen
+│   │   ├── JobMatches/   # Job matches screen
+│   │   └── Profile/      # Profile screen
+│   │
+│   ├── services/         # API and data layer
+│   │   ├── api/          # Axios configuration
+│   │   ├── models/       # API models and types
+│   │   └── queries/      # React Query hooks
+│   │
+│   ├── themes/           # Theming and styling
+│   │   └── colors.ts     # Color palette
+│   │
+│   └── types/            # TypeScript type definitions
+│       ├── navigation.d.ts
+│       └── services.d.ts
+│
+├── android/              # Android native code
+├── ios/                  # iOS native code
+├── __tests__/           # Test files
+└── App.tsx              # App entry point
+```
 
-## Congratulations! :tada:
+## 🔌 API Configuration
 
-You've successfully run and modified your React Native App. :partying_face:
+The app connects to a backend API for job matching services:
 
-### Now what?
+- **Base URL**: `http://103.127.135.62:8989`
+- **Configuration**: `src/services/api/axiosInstance.ts`
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+### Main Endpoints
 
-# Troubleshooting
+- `POST /profile` - Create/update user profile
+- `GET /job-matches` - Fetch personalized job recommendations
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+> **Note**: Update the `baseURL` in `axiosInstance.ts` if you're using a different backend endpoint.
 
-# Learn More
+## 🧪 Testing
 
-To learn more about React Native, take a look at the following resources:
+The project includes comprehensive test coverage with Jest and React Native Testing Library.
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+### Run Tests
+
+```bash
+# Run tests with coverage
+npm test
+# OR
+yarn test
+
+# Run tests in watch mode
+npm test -- --watch
+```
+
+### View Coverage Report
+
+After running tests, open the coverage report:
+```bash
+open coverage/lcov-report/index.html
+```
+
+### Test Structure
+- Unit tests for components: `src/components/**/__tests__/`
+- Screen tests: `src/screens/**/__tests__/`
+- Service tests: `src/services/**/__tests__/`
+
+## 🎨 Customization
+
+### Theming
+Colors and theme configuration can be found in `src/themes/colors.ts`. Modify this file to customize the app's appearance.
+
+### Splash Screen
+To update the splash screen, replace the assets in `src/assets/bootsplash/` and regenerate using the Bootsplash generator.
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Metro bundler issues:**
+```bash
+# Clear Metro cache
+npm start -- --reset-cache
+```
+
+**Android build issues:**
+```bash
+cd android
+./gradlew clean
+cd ..
+```
+
+**iOS build issues:**
+```bash
+cd ios
+bundle exec pod deintegrate
+bundle exec pod install
+cd ..
+```
+
+**Node modules issues:**
+```bash
+# Clean install
+rm -rf node_modules
+npm install
+# OR
+yarn install
+```
+
+For more help, see the [React Native Troubleshooting Guide](https://reactnative.dev/docs/troubleshooting).
+
+## 📚 Learn More
+
+### React Native Resources
+- [React Native Documentation](https://reactnative.dev/docs/getting-started)
+- [React Navigation Documentation](https://reactnavigation.org/docs/getting-started)
+- [TanStack Query Documentation](https://tanstack.com/query/latest/docs/react/overview)
+
+### Project-Specific
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [Jest Documentation](https://jestjs.io/docs/getting-started)
+- [React Native Testing Library](https://callstack.github.io/react-native-testing-library/)
+
+## 📝 Scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm start` | Start Metro bundler |
+| `npm run android` | Run on Android emulator/device |
+| `npm run ios` | Run on iOS simulator/device |
+| `npm test` | Run tests with coverage |
+| `npm run lint` | Run ESLint |
+
+## 🤝 Contributing
+
+This project was created for the Confluent Hackathon. If you'd like to contribute:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is private and was created for the Confluent Hackathon.
+
+## 👥 Team
+
+Built with ❤️ for the Confluent Hackathon
+
+---
+
+**Happy Coding! 🚀**
