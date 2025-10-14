@@ -46,13 +46,13 @@ export const ExperiencesScreen: FC<Props> = () => {
                 <ExperiencesList items={experiences} onItemChange={handleItemChange} />
 
                 <View style={styles.actionsRow}>
-                    <Button title="Add Experience" onPress={handleAddExperience} variant="outline" />
+                    <Button title="Add Experience" onPress={handleAddExperience} variant="primary" />
                     <View style={styles.spacer} />
-                    <Button title="Remove Last" onPress={handleRemoveLast} variant="secondary" />
+                    <Button title="Remove Last" onPress={handleRemoveLast} variant="primary" />
                 </View>
 
                 <View style={styles.cta}>
-                    <Button title="Continue" onPress={handleContinue} />
+                    <Button title="Continue" onPress={handleContinue} variant="secondary" />
                 </View>
 
                 <View style={styles.bottomSpacing} />

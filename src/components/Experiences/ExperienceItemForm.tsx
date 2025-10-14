@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { FormInput } from '../common/FormInput'
 import { ExperienceFormData } from './types'
+import { colors } from '../../themes/colors'
 
 interface Props {
     value: ExperienceFormData
@@ -44,14 +45,14 @@ export const ExperienceItemForm: FC<Props> = ({ value, index, onChange }) => {
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.WHITE,
         marginHorizontal: 24,
         marginTop: 16,
         borderRadius: 12,
         padding: 16,
         borderWidth: 1,
         borderColor: '#E2E8F0',
-        shadowColor: '#000',
+        shadowColor: colors.BLACK,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.06,
         shadowRadius: 6,
