@@ -4,6 +4,9 @@ import { Props } from "./types";
 import { ScreenHeader, Button } from "../../components/common";
 import { ExperiencesList, ExperienceFormData } from "../../components/Experiences";
 import { colors } from "../../themes/colors";
+import { usePostExperiences } from "../../services/queries/experiences/usePostExperiences";
+import { AbsoluteLoading } from "../../components/common/AbsoluteLoading";
+import { ExperiencesRequest } from "../../services/models/experiences/types";
 
 const createEmptyExperience = (): ExperienceFormData => ({
     title: '',
@@ -12,8 +15,16 @@ const createEmptyExperience = (): ExperienceFormData => ({
     description: '',
 })
 
-export const ExperiencesScreen: FC<Props> = () => {
+export const ExperiencesScreen: FC<Props> = ({ route }) => {
+    const { userId } = route.params
     const [experiences, setExperiences] = useState<ExperienceFormData[]>([createEmptyExperience()])
+
+    const {
+        mutate,
+        isPending,
+    } = usePostExperiences({
+        onSuccess: () => {},
+    })
 
     const handleItemChange = (index: number, field: keyof ExperienceFormData, value: string) => {
         setExperiences(prev => {
@@ -32,29 +43,35 @@ export const ExperiencesScreen: FC<Props> = () => {
     }
 
     const handleContinue = () => {
-        // TODO: optionally validate experiences then navigate to JobMatches
-        // navigation.navigate('JobMatchesScreen')
+        const payload: ExperiencesRequest = experiences.map((d) => ({
+            user_id: Number(userId),
+            ...d,
+        }))
+        mutate(payload)
     }
 
     return (
-        <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
-            <ScreenHeader
-                title="Your Experience(s)"
-                subtitle="Add one or more experiences to strengthen your profile"
-            />
+        <>
+            {isPending ? <AbsoluteLoading /> : null}
+            <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
+                <ScreenHeader
+                    title="Your Experience(s)"
+                    subtitle="Add one or more experiences to strengthen your profile"
+                />
 
-            <ExperiencesList items={experiences} onItemChange={handleItemChange} onItemRemove={handleItemRemove} />
+                <ExperiencesList items={experiences} onItemChange={handleItemChange} onItemRemove={handleItemRemove} />
 
-            <View style={styles.actionsRow}>
-                <Button title="Add Experience" onPress={handleAddExperience} variant="outline" />
-            </View>
+                <View style={styles.actionsRow}>
+                    <Button title="Add Experience" onPress={handleAddExperience} variant="outline" />
+                </View>
 
-            <View style={styles.cta}>
-                <Button title="Continue" onPress={handleContinue} variant="secondary" />
-            </View>
+                <View style={styles.cta}>
+                    <Button title="Continue" onPress={handleContinue} variant="secondary" />
+                </View>
 
-            <View style={styles.bottomSpacing} />
-        </ScrollView>
+                <View style={styles.bottomSpacing} />
+            </ScrollView>
+        </>
     )
 }
 
