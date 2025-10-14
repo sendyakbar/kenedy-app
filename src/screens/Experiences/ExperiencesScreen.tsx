@@ -1,8 +1,9 @@
 import { FC, useState } from "react";
-import { View, StyleSheet, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { Props } from "./types";
 import { ScreenHeader, Button } from "../../components/common";
 import { ExperiencesList, ExperienceFormData } from "../../components/Experiences";
+import { colors } from "../../themes/colors";
 
 const createEmptyExperience = (): ExperienceFormData => ({
     title: '',
@@ -22,12 +23,12 @@ export const ExperiencesScreen: FC<Props> = () => {
         })
     }
 
-    const handleAddExperience = () => {
-        setExperiences(prev => [...prev, createEmptyExperience()])
+    const handleItemRemove = (index: number) => {
+        setExperiences(prev => (prev.length > 1 ? prev.filter((_, i) => i !== index) : prev))
     }
 
-    const handleRemoveLast = () => {
-        setExperiences(prev => (prev.length > 1 ? prev.slice(0, -1) : prev))
+    const handleAddExperience = () => {
+        setExperiences(prev => [...prev, createEmptyExperience()])
     }
 
     const handleContinue = () => {
@@ -36,43 +37,37 @@ export const ExperiencesScreen: FC<Props> = () => {
     }
 
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
-            <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
-                <ScreenHeader
-                    title="Your Experiences"
-                    subtitle="Add one or more experiences to strengthen your profile"
-                />
+        <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
+            <ScreenHeader
+                title="Your Experiences"
+                subtitle="Add one or more experiences to strengthen your profile"
+            />
 
-                <ExperiencesList items={experiences} onItemChange={handleItemChange} />
+            <ExperiencesList items={experiences} onItemChange={handleItemChange} onItemRemove={handleItemRemove} />
 
-                <View style={styles.actionsRow}>
-                    <Button title="Add Experience" onPress={handleAddExperience} variant="primary" />
-                    <View style={styles.spacer} />
-                    <Button title="Remove Last" onPress={handleRemoveLast} variant="primary" />
-                </View>
+            <View style={styles.actionsRow}>
+                <Button title="Add Experience" onPress={handleAddExperience} variant="outline" />
+            </View>
 
-                <View style={styles.cta}>
-                    <Button title="Continue" onPress={handleContinue} variant="secondary" />
-                </View>
+            <View style={styles.cta}>
+                <Button title="Continue" onPress={handleContinue} variant="secondary" />
+            </View>
 
-                <View style={styles.bottomSpacing} />
-            </ScrollView>
-        </KeyboardAvoidingView>
+            <View style={styles.bottomSpacing} />
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F7FAFC',
+        backgroundColor: colors.BACKGROUND,
     },
     scrollView: { flex: 1 },
     scrollViewContent: { flexGrow: 1 },
     actionsRow: {
         marginHorizontal: 24,
         marginTop: 16,
-        flexDirection: 'row',
-        alignItems: 'center',
     },
     spacer: { width: 12 },
     cta: {

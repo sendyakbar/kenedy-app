@@ -2,15 +2,17 @@ import { FC } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { FormInput } from '../common/FormInput'
 import { ExperienceFormData } from './types'
+import { Button } from '../common/Button'
 import { colors } from '../../themes/colors'
 
 interface Props {
     value: ExperienceFormData
     index: number
     onChange: (index: number, field: keyof ExperienceFormData, value: string) => void
+    onRemove?: (index: number) => void
 }
 
-export const ExperienceItemForm: FC<Props> = ({ value, index, onChange }) => {
+export const ExperienceItemForm: FC<Props> = ({ value, index, onChange, onRemove }) => {
     return (
         <View style={styles.card}>
             <FormInput
@@ -39,6 +41,16 @@ export const ExperienceItemForm: FC<Props> = ({ value, index, onChange }) => {
                 multiline
                 numberOfLines={4}
             />
+
+            {onRemove && (
+                <View style={styles.removeRow}>
+                    <Button
+                        title="Remove"
+                        variant="primary"
+                        onPress={() => onRemove(index)}
+                    />
+                </View>
+            )}
         </View>
     )
 }
@@ -57,5 +69,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.06,
         shadowRadius: 6,
         elevation: 2,
+    },
+    removeRow: {
+        marginTop: 8,
     },
 })
