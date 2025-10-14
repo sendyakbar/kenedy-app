@@ -59,11 +59,10 @@ export const ExperiencesScreen: FC<Props> = () => {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    scrollView: {
         flex: 1,
         backgroundColor: colors.BACKGROUND,
     },
-    scrollView: { flex: 1 },
     scrollViewContent: { flexGrow: 1 },
     actionsRow: {
         marginHorizontal: 24,
