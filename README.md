@@ -28,6 +28,7 @@ Kenedy App is an AI-powered job matching platform that streamlines the job searc
 
 ### Networking
 - **Axios** (1.12.2) - HTTP client for API requests
+- **React Native Config** (1.5.6) - Environment configuration management
 
 ### UI & UX
 - **React Native Bootsplash** - Professional splash screen
@@ -68,7 +69,15 @@ Before you begin, ensure you have the following installed:
    yarn install
    ```
 
-3. **iOS Setup** (macOS only)
+3. **Environment Configuration**
+   
+   Create a `.env` file in the project root with your API configuration:
+   ```bash
+   # .env
+   BASE_URL=http://103.127.135.62:8989
+   ```
+
+4. **iOS Setup** (macOS only)
    
    First, install Ruby bundler:
    ```bash
@@ -157,6 +166,7 @@ kenedy-app/
 │   │   └── colors.ts     # Color palette
 │   │
 │   └── types/            # TypeScript type definitions
+│       ├── env.d.ts      # React Native Config types
 │       ├── navigation.d.ts
 │       └── services.d.ts
 │
@@ -168,17 +178,35 @@ kenedy-app/
 
 ## 🔌 API Configuration
 
-The app connects to a backend API for job matching services:
+The app connects to a backend API for job matching services using React Native Config for environment management.
 
-- **Base URL**: `http://103.127.135.62:8989`
-- **Configuration**: `src/services/api/axiosInstance.ts`
+### Environment Configuration
+
+The base URL is configured using React Native Config:
+
+- **Configuration File**: Create a `.env` file in the project root
+- **TypeScript Types**: `src/types/env.d.ts` defines the configuration interface
+- **Axios Instance**: `src/services/api/axiosInstance.ts` uses `Config.BASE_URL`
+
+### Setup Environment Variables
+
+1. **Create a `.env` file** in the project root:
+   ```bash
+   # .env
+   BASE_URL=http://103.127.135.62:8989
+   ```
+
+2. **For different environments**, you can create:
+   - `.env.development` - Development environment
+   - `.env.staging` - Staging environment  
+   - `.env.production` - Production environment
 
 ### Main Endpoints
 
 - `POST /profile` - Create/update user profile
 - `GET /job-matches` - Fetch personalized job recommendations
 
-> **Note**: Update the `baseURL` in `axiosInstance.ts` if you're using a different backend endpoint.
+> **Note**: Update the `BASE_URL` value in your `.env` file to point to your backend endpoint. The app will automatically use the configured URL through React Native Config.
 
 ## 🧪 Testing
 
@@ -250,6 +278,22 @@ npm install
 yarn install
 ```
 
+**React Native Config issues:**
+```bash
+# Clear Metro cache and restart
+npm start -- --reset-cache
+
+# For iOS, clean and rebuild
+cd ios
+bundle exec pod install
+cd ..
+```
+
+**Environment variables not loading:**
+- Ensure `.env` file is in the project root (same level as `package.json`)
+- Restart Metro bundler after creating/modifying `.env` file
+- For iOS, clean build folder in Xcode (Product → Clean Build Folder)
+
 For more help, see the [React Native Troubleshooting Guide](https://reactnative.dev/docs/troubleshooting).
 
 ## 📚 Learn More
@@ -258,6 +302,7 @@ For more help, see the [React Native Troubleshooting Guide](https://reactnative.
 - [React Native Documentation](https://reactnative.dev/docs/getting-started)
 - [React Navigation Documentation](https://reactnavigation.org/docs/getting-started)
 - [TanStack Query Documentation](https://tanstack.com/query/latest/docs/react/overview)
+- [React Native Config Documentation](https://github.com/luggit/react-native-config)
 
 ### Project-Specific
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
