@@ -3,13 +3,15 @@ export type JobMatchesParam = {
 }
 
 export type JobMatch = {
-    id: number
-    user_id: number
-    title: string
-    company: string
-    location: string
-    score: string
-    description: string
+    user_id: string
+    job_id: string
+    user_role: string
+    job_role: string
+    skills: string
+    job_description: string
+    match_score: number
+    reason: string
+    updated_at: string
 }
 
 export type JobMatchesResponse = JobMatch[]

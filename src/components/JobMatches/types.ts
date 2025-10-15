@@ -6,7 +6,7 @@ export interface JobCardProps {
 }
 
 export interface JobMatchBadgeProps {
-    score: string;
+    score: number;
 }
 
 export interface EmptyStateProps {

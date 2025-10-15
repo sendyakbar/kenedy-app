@@ -22,8 +22,6 @@ export const JobMatchesList: FC<JobMatchesListProps> = ({
         />
     );
 
-    const keyExtractor = (item: JobMatch) => item.id.toString();
-
     const renderEmptyComponent = () => {
         return isLoading ? null : <EmptyState />;
     };
@@ -32,7 +30,7 @@ export const JobMatchesList: FC<JobMatchesListProps> = ({
         <FlatList
             data={jobs}
             renderItem={renderItem}
-            keyExtractor={keyExtractor}
+            keyExtractor={(_, i) => String(i)}
             contentContainerStyle={styles.contentContainer}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={renderEmptyComponent}

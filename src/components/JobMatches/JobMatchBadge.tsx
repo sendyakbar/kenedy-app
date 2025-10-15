@@ -4,12 +4,12 @@ import { JobMatchBadgeProps } from "./types";
 import { colors } from "../../themes/colors";
 
 export const JobMatchBadge: FC<JobMatchBadgeProps> = ({ score }) => {
-    const scoreValue = parseFloat(score) || 0;
+    const scoreValue = score || 0;
     const scorePercentage = Math.round(scoreValue * 100);
     
-    const getScoreColor = (score: number) => {
-        if (score >= 80) return '#10B981'; // green
-        if (score >= 60) return '#F59E0B'; // amber
+    const getScoreColor = (scr: number) => {
+        if (scr >= 80) return '#10B981'; // green
+        if (scr >= 60) return '#F59E0B'; // amber
         return '#EF4444'; // red
     };
 
