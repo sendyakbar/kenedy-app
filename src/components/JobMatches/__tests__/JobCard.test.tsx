@@ -4,22 +4,22 @@ import { JobCard } from '../JobCard';
 import { JobMatch } from '../../../services/models/jobMatches/types';
 
 const mockJob: JobMatch = {
-    id: 1,
-    user_id: 1,
-    title: 'Senior React Native Developer',
-    company: 'TechCorp Inc.',
-    location: 'San Francisco, CA',
-    score: '0.92',
-    description: 'We are looking for an experienced React Native developer.',
+    user_id: '1',
+    job_id: '1',
+    user_role: 'Senior React Native Developer',
+    job_role: 'Senior React Native Developer',
+    skills: 'React Native, TypeScript, JavaScript',
+    job_description: 'We are looking for an experienced React Native developer.',
+    match_score: 0.92,
+    reason: 'Strong match based on your React Native experience',
+    updated_at: '2024-01-15T10:30:00Z',
 };
 
 describe('JobCard', () => {
     it('renders job information correctly', () => {
-        const { getByText } = render(<JobCard job={mockJob} />);
+        const { getAllByText, getByText } = render(<JobCard job={mockJob} />);
         
-        expect(getByText('Senior React Native Developer')).toBeTruthy();
-        expect(getByText('TechCorp Inc.')).toBeTruthy();
-        expect(getByText('San Francisco, CA')).toBeTruthy();
+        expect(getAllByText('Senior React Native Developer')).toHaveLength(2); // job_role and user_role
         expect(getByText('92%')).toBeTruthy();
     });
 
@@ -37,9 +37,10 @@ describe('JobCard', () => {
 
     it('calls onPress when card is pressed', () => {
         const onPressMock = jest.fn();
-        const { getByText } = render(<JobCard job={mockJob} onPress={onPressMock} />);
+        const { getAllByText } = render(<JobCard job={mockJob} onPress={onPressMock} />);
         
-        const card = getByText('Senior React Native Developer').parent?.parent?.parent;
+        const jobTitleElements = getAllByText('Senior React Native Developer');
+        const card = jobTitleElements[0].parent?.parent?.parent;
         if (card) {
             fireEvent.press(card);
             expect(onPressMock).toHaveBeenCalledWith(mockJob);
@@ -47,9 +48,9 @@ describe('JobCard', () => {
     });
 
     it('renders without onPress callback', () => {
-        const { getByText } = render(<JobCard job={mockJob} />);
+        const { getAllByText } = render(<JobCard job={mockJob} />);
         
-        expect(getByText('Senior React Native Developer')).toBeTruthy();
+        expect(getAllByText('Senior React Native Developer')).toHaveLength(2);
     });
 });
 

@@ -4,8 +4,9 @@ import { JobMatchBadgeProps } from "./types";
 import { colors } from "../../themes/colors";
 
 export const JobMatchBadge: FC<JobMatchBadgeProps> = ({ score }) => {
-    const scoreValue = score || 0;
-    const scorePercentage = Math.round(scoreValue * 100);
+    const scoreValue = typeof score === 'string' ? parseFloat(score) : score;
+    const validScore = isNaN(scoreValue) ? 0 : scoreValue;
+    const scorePercentage = Math.round(validScore * 100);
     
     const getScoreColor = (scr: number) => {
         if (scr >= 80) return '#10B981'; // green

@@ -52,25 +52,27 @@ describe('JobMatchesScreen', () => {
             isLoading: false,
         });
 
-        const { getByText } = render(
+        const { getAllByText } = render(
             <JobMatchesScreen route={mockRoute} />
         );
 
-        // Dummy data jobs should be displayed
-        expect(getByText('Senior React Native Developer')).toBeTruthy();
-        expect(getByText('React Native Specialist')).toBeTruthy();
+        // Dummy data jobs should be displayed (8 jobs, each with user_role "Senior React Native Developer", plus 1 job with job_role "Senior React Native Developer")
+        expect(getAllByText('Senior React Native Developer')).toHaveLength(9);
+        expect(getAllByText('Mobile Application Engineer')).toHaveLength(1);
     });
 
     it('displays API data when available', () => {
         const apiJobs = [
             {
-                id: 100,
-                user_id: 1,
-                title: 'API Job Title',
-                company: 'API Company',
-                location: 'API Location',
-                score: '0.95',
-                description: 'This is from the API',
+                user_id: '1',
+                job_id: '100',
+                user_role: 'API User Role',
+                job_role: 'API Job Title',
+                skills: 'API Skills',
+                job_description: 'This is from the API',
+                match_score: 0.95,
+                reason: 'API match reason',
+                updated_at: '2024-01-15T10:30:00Z',
             },
         ];
 
@@ -79,12 +81,12 @@ describe('JobMatchesScreen', () => {
             isLoading: false,
         });
 
-        const { getByText } = render(
+        const { getAllByText } = render(
             <JobMatchesScreen route={mockRoute} />
         );
 
-        expect(getByText('API Job Title')).toBeTruthy();
-        expect(getByText('API Company')).toBeTruthy();
+        expect(getAllByText('API Job Title')).toHaveLength(1);
+        expect(getAllByText('API User Role')).toHaveLength(1);
     });
 
     it('shows correct opportunity count in subtitle', () => {
@@ -137,13 +139,15 @@ describe('JobMatchesScreen', () => {
     it('handles job press correctly', () => {
         const apiJobs = [
             {
-                id: 100,
-                user_id: 1,
-                title: 'Test Job',
-                company: 'Test Company',
-                location: 'Test Location',
-                score: '0.95',
-                description: 'Test description',
+                user_id: '1',
+                job_id: '100',
+                user_role: 'Test User Role',
+                job_role: 'Test Job',
+                skills: 'Test Skills',
+                job_description: 'Test description',
+                match_score: 0.95,
+                reason: 'Test reason',
+                updated_at: '2024-01-15T10:30:00Z',
             },
         ];
 
@@ -153,11 +157,11 @@ describe('JobMatchesScreen', () => {
         });
 
         const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
-        const { getByText } = render(<JobMatchesScreen route={mockRoute} />);
+        const { getAllByText } = render(<JobMatchesScreen route={mockRoute} />);
 
         // Find and press the job card
-        const jobTitle = getByText('Test Job');
-        const jobCard = jobTitle.parent?.parent?.parent;
+        const jobTitleElements = getAllByText('Test Job');
+        const jobCard = jobTitleElements[0].parent?.parent?.parent;
         
         if (jobCard) {
             fireEvent.press(jobCard);
@@ -173,11 +177,11 @@ describe('JobMatchesScreen', () => {
             isLoading: false,
         });
 
-        const { getByText } = render(<JobMatchesScreen route={mockRoute} />);
+        const { getAllByText, getByText } = render(<JobMatchesScreen route={mockRoute} />);
 
         // Should show dummy jobs (8 jobs) when data is undefined
         expect(getByText('8 opportunities tailored for you')).toBeTruthy();
-        expect(getByText('Senior React Native Developer')).toBeTruthy();
+        expect(getAllByText('Senior React Native Developer')).toHaveLength(9);
     });
 });
 
