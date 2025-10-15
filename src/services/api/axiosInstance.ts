@@ -1,7 +1,8 @@
 import axios from 'axios'
+import Config from 'react-native-config'
 
 const axiosInstance = axios.create({
-    baseURL: 'http://103.127.135.62:8989'
+    baseURL: Config.BASE_URL
 })
 
 export default axiosInstance

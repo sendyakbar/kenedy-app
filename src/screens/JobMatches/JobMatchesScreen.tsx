@@ -110,6 +110,8 @@ export const JobMatchesScreen: FC<Props> = ({ route }) => {
         param: { userId },
         options: { enabled: !!userId },
     })
+
+    console.log('apidata: ', apiData)
     
     // Use dummy data if API data is not available
     const data = apiData && apiData.length > 0 ? apiData : DUMMY_JOBS;
